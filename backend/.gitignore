@@ -1,0 +1,39 @@
+# Node.specific
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# IDE and OS specific files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Build output
+build/
+dist/
+out/
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Optional: Ignore coverage reports
+coverage/
+
+# Optional: Ignore lock files if you only use one package manager
+# yarn.lock
+# pnpm-lock.yaml
