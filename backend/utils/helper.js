@@ -49,5 +49,5 @@ async function setupOAuthClient() {
 
 module.exports = {
     setupOAuthClient,
-    getLatestToken
+    getLatestToken,
 }

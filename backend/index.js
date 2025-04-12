@@ -2,23 +2,28 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const ngrok = require('ngrok');
 
 const authRoutes = require("./routes/authRoutes.js");
 const accountsRoutes = require("./routes/accountsRoutes.js");
+const chartOfAccCRUDRoutes = require("./routes/chartOfAccCRUDRoutes.js");
 const payeesRoutes = require("./routes/payeesRoutes.js");
 const transactionsRoutes = require("./routes/transactionsRoutes.js");
 const syncRoutes = require("./routes/syncRoutes.js");
+const webhookRoutes = require("./routes/webhookRoutes.js");
 
 const { connectDB } = require("./config/db.js");
 const errorHandler = require("./middleware/errorHandler.js");
+const { setupOAuthClient } = require("./utils/helper.js");
+const asyncHandler = require("./middleware/asyncHandler.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-    origin: `${process.env.CLIENT_URL}`, 
-    credentials: true, 
+    origin: `${process.env.CLIENT_URL}`,
+    credentials: true,
     methods: 'GET,POST,PUT,DELETE'
 }));
 app.use(bodyParser.json());
@@ -37,9 +42,11 @@ app.get("/", (req, res) => {
 // Initiate OAuth flow
 app.use("/auth", authRoutes);
 app.use("/sync/chart-of-accounts", accountsRoutes);
+app.use("/api/chart-of-accounts", chartOfAccCRUDRoutes);
 app.use("/sync/payees", payeesRoutes);
 app.use("/sync/transactions", transactionsRoutes);
 app.use("/sync", syncRoutes);
+app.use("/api", webhookRoutes);
 
 // Error handling for non-existent routes
 app.use((req, res) => {

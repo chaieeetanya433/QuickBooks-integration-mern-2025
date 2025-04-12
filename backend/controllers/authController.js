@@ -16,7 +16,6 @@ const initiateAuth = (req, res) => {
 const handleCallback = async (req, res) => {
     try {
         const authResponse = await oauthClient.createToken(req.url);
-        console.log(authResponse, 'authResponse');
         const authToken = authResponse.getToken();
         const realmId = req.query.realmId;
 
